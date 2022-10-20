@@ -4,6 +4,7 @@
  */
 package mx.itson.canela.entidades;
 
+import com.google.gson.Gson;
 import java.util.List;
 import mx.itson.canela.enumeradores.Dificultad;
 
@@ -20,9 +21,34 @@ public class Receta {
     private String descripcion;
     private int numeroPorciones;
     private int tiempo;
+
+    public Usuario getUsuario() {
+        return usuario;
+    }
+
+    public void setUsuario(Usuario usuario) {
+        this.usuario = usuario;
+    }
+    private Usuario usuario;
     private List<Ingrediente> ingredientes;
     private List<Paso> pasos;
     private Dificultad dificultad;
+    
+    
+    /**
+     * 
+     * @param json The parameter for deserializar method
+     * @return the receta
+     */
+    public Receta deserializar(String json){
+        Receta receta = new Receta();
+        try{
+            receta = new Gson().fromJson(json, Receta.class);
+        } catch(Exception ex){
+            System.err.println("Ocurrio un error: " + ex.getMessage());
+        }
+        return receta;
+    }
 
     public String getNombre() {
         return nombre;
